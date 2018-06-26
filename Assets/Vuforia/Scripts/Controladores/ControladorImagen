@@ -1,0 +1,31 @@
+using UnityEngine;
+//
+using System.Colletions;
+
+public class ControladorImagen : MonoBehaviour {
+	
+	////////////////////////////////////////
+	//
+	// REQ01 : VER PRODUCTO
+	// Autor : Juan B. Yáñez
+	// Fecha : 26/JUN/18
+	//
+	////////////////////////////////////////
+
+	public RawImage imgRawImagen;
+	private WWW www;
+	public Image imgBarraCarga;
+	public Text txtPorcenCarga;
+
+	IEnumerator Start(){
+		www = new WWW(strUrlImagen);
+		yield return www;
+		imgRawImagen.texture = www.texture;
+	}
+
+	void Update(){
+		imgBarraCarga.fillAmount = www.progress;
+		txtPorcenCarga.text = www.progress.ToString("00%");
+		Debug.Log(www.progress);
+	}
+}
